@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ktris Web</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="config.css">
+</head>
+<body>
+
+<header>
+        <span class="logo">
+            <span class="logo-main">KTRIS</span>
+            <span class="logo-sub">web</span>
+        </span>
+
+    <nav class="social">
+        <button class="social-link settings-btn" id="nav-settings" aria-label="Settings">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06
+                             a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09
+                             A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83
+                             l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09
+                             A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83
+                             l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09
+                             a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83
+                             l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09
+                             a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+            Settings
+        </button>
+
+        <div class="social-sep"></div>
+
+        <a class="social-link github" href="https://github.com/YOUR_USERNAME" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577
+                             0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756
+                             -1.333-1.756-1.09-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236
+                             1.07 1.835 2.807 1.305 3.492.998.108-.776.418-1.305.762-1.605
+                             -2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22
+                             -.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399
+                             3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23
+                             .645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22
+                             0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22
+                             0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57
+                             C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/>
+            </svg>
+            GitHub
+        </a>
+
+        <div class="social-sep"></div>
+
+        <a class="social-link linkedin" href="https://linkedin.com/in/YOUR_USERNAME" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037
+                             -1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046
+                             c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286z
+                             M5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065z
+                             m1.782 13.019H3.555V9h3.564v11.452z
+                             M22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451
+                             C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            LinkedIn
+        </a>
+    </nav>
+</header>
+
+<div class="corner corner--tl"></div>
+<div class="corner corner--tr"></div>
+<div class="corner corner--bl"></div>
+<div class="corner corner--br"></div>
+
+<div class="keyhints">
+    <span class="key"><kbd>←→</kbd> move</span>
+    <span class="key"><kbd>Z</kbd><kbd>X</kbd> rotate</span>
+    <span class="key"><kbd>↑</kbd> flip</span>
+    <span class="key"><kbd>↓</kbd> soft drop</span>
+    <span class="key"><kbd>SPC</kbd> hard drop</span>
+    <span class="key"><kbd>C</kbd> hold</span>
+    <span class="key"><kbd>S</kbd> zone</span>
+    <span class="key"><kbd>R</kbd> reset</span>
+</div>
+
+<span class="version">v0.1.0</span>
+
+<div id="config-overlay" class="hidden" aria-hidden="true">
+    <div class="config-panel" role="dialog" aria-label="Game settings">
+
+        <div class="config-header">
+            <div>
+                <div class="config-title">Settings</div>
+                <div class="config-subtitle">Changes apply on next restart</div>
+            </div>
+            <button class="config-close" id="cfg-close" aria-label="Close settings">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="config-columns">
+
+            <div>
+                <div class="config-section">
+                    <div class="config-section-title">Board</div>
+                    <div class="config-grid">
+                        <div class="config-field">
+                            <label for="cfg-boardRows">Rows</label>
+                            <input type="number" id="cfg-boardRows" value="20" min="4" max="40">
+                        </div>
+                        <div class="config-field">
+                            <label for="cfg-boardCols">Columns</label>
+                            <input type="number" id="cfg-boardCols" value="10" min="4" max="20">
+                        </div>
+                        <div class="config-field">
+                            <label for="cfg-bufferZone">Buffer Zone</label>
+                            <input type="number" id="cfg-bufferZone" value="4" min="0" max="10">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="config-section">
+                    <div class="config-section-title">Gravity</div>
+                    <div class="config-grid">
+                        <div class="config-field">
+                            <label for="cfg-gravityBase">Base (ms)</label>
+                            <input type="number" id="cfg-gravityBase" value="1000" min="50" max="5000" step="50">
+                        </div>
+                        <div class="config-field">
+                            <div class="field-label">Increment</div>
+                            <div class="range-row">
+                                <input type="range" id="cfg-gravityIncrement" value="0.8" min="0.1" max="2" step="0.05">
+                                <span class="range-value" id="lbl-gravityIncrement">0.8</span>
+                            </div>
+                        </div>
+                        <div class="config-field">
+                            <label for="cfg-levelCap">Level Cap</label>
+                            <input type="number" id="cfg-levelCap" value="99" min="1" max="999">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="config-section">
+                    <div class="config-section-title">Goal</div>
+                    <div class="config-grid">
+                        <div class="config-field">
+                            <label for="cfg-goalType">Type</label>
+                            <select id="cfg-goalType">
+                                <option value="NONE">None</option>
+                                <option value="LINES">Lines</option>
+                                <option value="TIME">Time</option>
+                            </select>
+                        </div>
+                        <div class="config-field" id="goal-value-row">
+                            <label for="cfg-goalValue" id="goal-value-label">Goal Value</label>
+                            <input type="number" id="cfg-goalValue" value="0" min="0">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="config-section">
+                    <div class="config-section-title">Advanced</div>
+                    <div style="margin-top:10px">
+                        <label class="toggle-field">
+                            <input type="checkbox" id="cfg-collapseOnFreeze" checked>
+                            <span>Collapse lines during Freeze</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="config-section">
+                    <div class="config-section-title">Handling (ms)</div>
+                    <div class="config-grid">
+                        <div class="config-field">
+                            <label for="cfg-dasDelay">DAS</label>
+                            <input type="number" id="cfg-dasDelay" value="133" min="0" max="500" step="1">
+                        </div>
+                        <div class="config-field">
+                            <label for="cfg-arrDelay">ARR</label>
+                            <input type="number" id="cfg-arrDelay" value="0" min="0" max="200" step="1">
+                        </div>
+                        <div class="config-field">
+                            <label for="cfg-softDropDelay">Soft Drop</label>
+                            <input type="number" id="cfg-softDropDelay" value="0.5" min="0" max="100" step="0.5">
+                        </div>
+                        <div class="config-field">
+                            <label for="cfg-entryDelay">Entry Delay</label>
+                            <input type="number" id="cfg-entryDelay" value="200" min="0" max="500" step="10">
+                        </div>
+                        <div class="config-field">
+                            <label for="cfg-lockDelay">Lock Delay</label>
+                            <input type="number" id="cfg-lockDelay" value="500" min="100" max="2000" step="10">
+                        </div>
+                        <div class="config-field">
+                            <div class="field-label">Max Lock Resets</div>
+                            <div class="range-row">
+                                <input type="range" id="cfg-maxLockResets" value="15" min="0" max="30" step="1">
+                                <span class="range-value" id="lbl-maxLockResets">15</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="config-section">
+                    <div class="config-section-title">Preview</div>
+                    <div class="config-grid">
+                        <div class="config-field">
+                            <div class="field-label">Queue Size</div>
+                            <div class="range-row">
+                                <input type="range" id="cfg-previewSize" value="5" min="0" max="7" step="1">
+                                <span class="range-value" id="lbl-previewSize">5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="config-section">
+                    <div class="config-section-title">Features</div>
+                    <div class="config-toggles">
+                        <label class="toggle-field">
+                            <input type="checkbox" id="cfg-holdEnabled" checked>
+                            <span>Hold piece</span>
+                        </label>
+                        <label class="toggle-field">
+                            <input type="checkbox" id="cfg-ghostEnabled" checked>
+                            <span>Ghost piece</span>
+                        </label>
+                        <label class="toggle-field">
+                            <input type="checkbox" id="cfg-spinEnabled" checked>
+                            <span>Spin detection (T-spin / All-spin)</span>
+                        </label>
+                        <label class="toggle-field">
+                            <input type="checkbox" id="cfg-180Enabled">
+                            <span>180° rotation</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="config-footer">
+            <button class="btn btn-ghost" id="cfg-reset">Reset defaults</button>
+            <button class="btn btn-danger" id="cfg-apply">Apply &amp; Restart</button>
+        </div>
+    </div>
+</div>
+
+<div id="game-wrapper">
+    <canvas id="canvas"></canvas>
+</div>
+
+<script src="config.js"></script>
+<script src="KtrisWebKt.js"></script>
+</body>
+</html>

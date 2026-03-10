@@ -1,0 +1,313 @@
+#config-overlay {
+    position: fixed; inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.88);
+    backdrop-filter: blur(6px);
+    animation: fadeIn 0.4s ease both;
+}
+
+#config-overlay.hidden {
+    animation: fadeOut 0.35s ease forwards;
+    pointer-events: none;
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; transform: scale(0.97); }
+}
+
+.config-panel {
+    width: min(800px, 94vw);
+    max-height: 88vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,255,255,0.2) transparent;
+    border: 1px solid rgba(0,255,255,0.2);
+    border-radius: 6px;
+    background: rgba(5,5,12,0.97);
+    padding: 32px 36px 28px;
+    position: relative;
+}
+
+.config-panel::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cyan), var(--purple), transparent);
+    border-radius: 6px 6px 0 0;
+}
+
+.config-title {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 1.05rem;
+    letter-spacing: 0.2em;
+    color: #fff;
+    text-shadow: 0 0 14px var(--cyan);
+    margin-bottom: 3px;
+}
+
+.config-subtitle {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--dim);
+    text-transform: uppercase;
+    margin-bottom: 26px;
+}
+
+/* ── two-column layout ── */
+.config-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 40px;
+}
+
+@media (max-width: 560px) {
+    .config-columns { grid-template-columns: 1fr; }
+}
+
+.config-section { margin-bottom: 22px; }
+
+.config-section-title {
+    font-size: 0.58rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    opacity: 0.65;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(0,255,255,0.1);
+}
+
+/* ── field grid inside a section ── */
+.config-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px 16px;
+}
+
+.config-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.config-field label,
+.config-field .field-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+}
+
+.config-field input[type="number"],
+.config-field select {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 3px;
+    color: #fff;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    padding: 6px 9px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+}
+
+.config-field input[type="number"]:focus,
+.config-field select:focus {
+    border-color: rgba(0,255,255,0.4);
+    box-shadow: 0 0 8px rgba(0,255,255,0.08);
+}
+
+.config-field select option { background: #0a0a14; }
+
+/* range */
+.range-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.config-field input[type="range"] {
+    flex: 1;
+    height: 4px;
+    padding: 0;
+    accent-color: var(--cyan);
+    cursor: pointer;
+    background: transparent;
+}
+
+.range-value {
+    font-size: 0.72rem;
+    color: var(--cyan);
+    min-width: 32px;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+/* toggles */
+.config-toggles {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.toggle-field {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.toggle-field input[type="checkbox"] {
+    appearance: none;
+    width: 14px; height: 14px;
+    border: 1px solid rgba(0,255,255,0.3);
+    border-radius: 2px;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.toggle-field input[type="checkbox"]:checked {
+    background: var(--cyan);
+    border-color: var(--cyan);
+}
+
+.toggle-field input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute; top: 1px; left: 4px;
+    width: 4px; height: 7px;
+    border: 2px solid #000;
+    border-top: none; border-left: none;
+    transform: rotate(45deg);
+}
+
+.toggle-field span {
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    transition: color 0.15s;
+}
+
+.toggle-field:hover span,
+.toggle-field input:checked + span { color: rgba(255,255,255,0.85); }
+
+.config-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    margin-top: 26px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.btn {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    padding: 8px 22px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+}
+
+.btn-ghost {
+    background: transparent;
+    border-color: rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.35);
+}
+.btn-ghost:hover {
+    border-color: rgba(255,255,255,0.28);
+    color: rgba(255,255,255,0.65);
+}
+
+.btn-primary {
+    background: transparent;
+    border-color: var(--cyan);
+    color: var(--cyan);
+    box-shadow: 0 0 10px rgba(0,255,255,0.1);
+}
+.btn-primary:hover {
+    background: rgba(0,255,255,0.07);
+    box-shadow: 0 0 18px rgba(0,255,255,0.22);
+    transform: translateY(-1px);
+}
+.btn-primary:active { transform: translateY(0); }
+
+#config-overlay {
+    display: flex;
+}
+#config-overlay.hidden {
+    display: none;
+}
+#config-overlay.closing {
+    display: flex;
+    animation: fadeOut 0.3s ease forwards;
+    pointer-events: none;
+}
+
+.settings-btn {
+    background: transparent;
+    cursor: pointer;
+    font-family: 'Share Tech Mono', monospace;
+}
+.settings-btn.active {
+    color: var(--cyan);
+    border-color: rgba(0,255,255,0.4);
+    box-shadow: 0 0 10px rgba(0,255,255,0.15);
+}
+.settings-btn.active svg {
+    animation: spin 4s linear infinite;
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.config-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.config-close {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 3px;
+    color: rgba(255,255,255,0.35);
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s, border-color 0.2s;
+    flex-shrink: 0;
+}
+.config-close:hover {
+    color: #fff;
+    border-color: rgba(255,255,255,0.35);
+}
+
+.btn-danger {
+    background: transparent;
+    border-color: rgba(255, 80, 80, 0.7);
+    color: rgba(255, 110, 110, 0.9);
+    box-shadow: 0 0 10px rgba(255,60,60,0.08);
+}
+.btn-danger:hover {
+    background: rgba(255,60,60,0.07);
+    border-color: rgba(255,80,80,1);
+    color: #ff8080;
+    box-shadow: 0 0 18px rgba(255,60,60,0.2);
+    transform: translateY(-1px);
+}
+.btn-danger:active { transform: translateY(0); }
