@@ -44,7 +44,6 @@ jobs:
       - name: Assemble site
         run: |
           DIST=build/dist/js/productionExecutable
-          # copy all static assets next to the compiled JS
           cp src/jsMain/resources/index.html $DIST/
           cp src/jsMain/resources/style.css   $DIST/
           cp src/jsMain/resources/config.css  $DIST/

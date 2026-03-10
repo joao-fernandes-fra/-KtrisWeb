@@ -1,5 +1,5 @@
 plugins {
-    kotlin("js") version "2.3.0"
+    kotlin("multiplatform") version "2.3.0"
 }
 
 group = "com.github.joao-fernandes-fra"
@@ -10,12 +10,6 @@ repositories {
     maven { url = uri("https://jitpack.io") }
 }
 
-dependencies {
-    testImplementation(kotlin("test"))
-    implementation("com.github.joao-fernandes-fra.Ktris:Ktris:v0.6.2-SNAPSHOT")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.10.2")
-}
-
 kotlin {
     js(IR) {
         browser {
@@ -23,6 +17,20 @@ kotlin {
                 mainOutputFileName = "KtrisWebKt.js"
             }
             binaries.executable()
+        }
+    }
+
+    sourceSets {
+        val jsMain by getting {
+            dependencies {
+                implementation("com.github.joao-fernandes-fra.Ktris:Ktris:v0.6.2-SNAPSHOT")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.10.2")
+            }
+        }
+        val jsTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+            }
         }
     }
 }
