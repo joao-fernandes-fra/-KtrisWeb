@@ -43,7 +43,7 @@ jobs:
 
       - name: Assemble site
         run: |
-          DIST=build/dist/js/productionExecutable
+          DIST=build/kotlin-webpack/js/productionExecutable
           cp src/jsMain/resources/index.html $DIST/
           cp src/jsMain/resources/style.css   $DIST/
           cp src/jsMain/resources/config.css  $DIST/
@@ -52,7 +52,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build/dist/js/productionExecutable
+          path: build/kotlin-webpack/js/productionExecutable
 
   deploy:
     needs: build
