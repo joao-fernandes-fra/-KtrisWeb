@@ -2,8 +2,8 @@ plugins {
     kotlin("js") version "2.3.0"
 }
 
-group = "com.kari-placeholder"
-version = "1.0-SNAPSHOT"
+group = "com.github.joao-fernandes-fra"
+version = "1.0.0"
 
 repositories {
     mavenCentral()
@@ -19,8 +19,10 @@ dependencies {
 kotlin {
     js(IR) {
         browser {
+            webpackTask {
+                mainOutputFileName = "KtrisWebKt.js"
+            }
             binaries.executable()
         }
-        nodejs()
     }
 }
