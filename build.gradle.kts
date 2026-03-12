@@ -23,7 +23,7 @@ kotlin {
     sourceSets {
         val jsMain by getting {
             dependencies {
-                implementation("com.github.joao-fernandes-fra.Ktris:Ktris:v0.6.2-SNAPSHOT")
+                implementation("com.github.joao-fernandes-fra.Ktris:Ktris:v0.7.0-SNAPSHOT")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.10.2")
             }
         }

@@ -6,7 +6,6 @@ import engine.model.PlayerSettings
 import engine.model.defaults.Tetromino
 import kotlinx.browser.window
 import webktris.controller.WebTetris
-import webktris.model.ExtendedRuleBook
 import webktris.view.CanvasRendering
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
@@ -39,6 +38,7 @@ private fun launchGame() {
             else -> GameGoal.NONE
         },
         goalValue = (cfg.goalValue as Double),
+        isSpinEnabled = (cfg.isSpinEnabled as Boolean),
     )
 
     val playerSettings = PlayerSettings(
@@ -50,7 +50,6 @@ private fun launchGame() {
         maxLockResets = (cfg.maxLockResets as Int),
         isHoldEnabled = (cfg.isHoldEnabled as Boolean),
         isGhostEnabled = (cfg.isGhostEnabled as Boolean),
-        isSpinEnabled = (cfg.isSpinEnabled as Boolean),
         is180Enabled = (cfg.is180Enabled as Boolean),
         previewSize = (cfg.previewSize as Int),
     )
@@ -59,6 +58,6 @@ private fun launchGame() {
     val gameContext = GameRegistry.registerContext(
         GameRegistry.getDefaultContext(gameSettings, playerSettings, Tetromino.pieces, gameId)
     )
-    ScoreProvider.defaultBuilder(gameId).withRuleBook(ExtendedRuleBook()).build()
+    ScoreProvider.defaultBuilder(gameId).defaultRuleBook().build()
     WebTetris(gameContext).start(CanvasRendering(gameContext))
 }

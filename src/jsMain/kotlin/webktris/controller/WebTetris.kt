@@ -1,41 +1,35 @@
 package webktris.controller
 
 import engine.controller.GameRenderer
-import engine.controller.defaults.DefaultTetrisEngine
+import engine.controller.defaults.BaseTetris
 import engine.model.KtrisContext
 import engine.model.SpinType.NONE
-import engine.model.TimeState
-import engine.model.defaults.Logger
 import engine.model.defaults.ProceduralPiece
 import engine.model.events.EventOrchestrator
 import engine.model.events.GameEvent
-import engine.model.events.GameEvent.GarbageReceived
-import engine.model.events.GameEvent.LevelUp
 import engine.model.events.GameEvent.LineCleared
-import engine.model.events.InputEvent
-import engine.model.events.InputEvent.DirectionMoveEnd
-import engine.model.events.InputEvent.DirectionMoveStart
-import engine.model.events.InputEvent.DropInput
 import engine.model.events.InputEvent.FreezeTime
-import engine.model.events.InputEvent.RotationInputRelease
-import engine.model.events.InputEvent.RotationInputStart
-import engine.model.events.InputEvent.SlowDownTime
 import kotlinx.browser.window
 
 class WebTetris(
-    private val context: KtrisContext<ProceduralPiece>
-) : DefaultTetrisEngine<ProceduralPiece>(
-    context.playerSettings,
-    context.gameSettings,
-    context.boardManager,
-    context.pieceController,
-    context.gameTimers,
-    context.timeManager,
+    context: KtrisContext<ProceduralPiece>
+) : BaseTetris<ProceduralPiece>(
+    context
 ) {
     init {
-        setupTimeSystem()
-        setupInputEvents()
-        setupGameEvents()
+        EventOrchestrator.subscribeForGameId<LineCleared>(gameId) { event ->
+            rechargeFreezeGauge(event)
+        }
+
+        EventOrchestrator.subscribeForGameId<GameEvent.SpinDetected>(gameId) { event ->
+            if (event.spinType != NONE) freezeGauge += 1.5
+        }
+
+        EventOrchestrator.subscribeForGameId<ZoneInput>(gameId) {
+            if (freezeGauge > 0.0) {
+                activateZone()
+            }
+        }
     }
 
     companion object {
@@ -55,52 +49,6 @@ class WebTetris(
             EventOrchestrator.publish(GaugeChanged(gameId, field))
         }
 
-    private fun setupTimeSystem() {
-        timeManager.onFreezeEnded = {
-            freezeLineClears = 0
-            val linesCleared = boardManager.clearFullLines()
-
-            if (linesCleared.isNotEmpty()) {
-                EventOrchestrator.publish(
-                    LineCleared(NONE, linesCleared, boardManager.isBoardEmpty, gameId)
-                )
-            }
-            Logger.info { "Freeze ended. Cleared $linesCleared lines immediately." }
-        }
-    }
-
-    private fun setupGameEvents() {
-        EventOrchestrator.subscribeForGameId<LevelUp>(gameId) { levelUp(it.newLevel) }
-        EventOrchestrator.subscribeForGameId<GarbageReceived>(gameId) {
-            processGarbage(it.lines)
-        }
-    }
-
-    private fun setupInputEvents() {
-        EventOrchestrator.subscribeForGameId<InputEvent.HoldInput>(gameId) { onHold() }
-        EventOrchestrator.subscribeForGameId<DirectionMoveStart>(gameId) { onMovement(it.movement) }
-        EventOrchestrator.subscribeForGameId<DirectionMoveEnd>(gameId) { onMovementRelease(it.movement) }
-        EventOrchestrator.subscribeForGameId<DropInput>(gameId) { onDrop(it.dropType) }
-        EventOrchestrator.subscribeForGameId<RotationInputStart>(gameId) { onRotation(it.rotation) }
-        EventOrchestrator.subscribeForGameId<RotationInputRelease>(gameId) { onRotationRelease(it.rotation) }
-        EventOrchestrator.subscribeForGameId<SlowDownTime>(gameId) { onTimeState(TimeState.SLOWED, it.duration) }
-        EventOrchestrator.subscribeForGameId<FreezeTime>(gameId) { onTimeState(TimeState.FROZEN, it.duration) }
-        EventOrchestrator.subscribeForGameId<InputEvent.ResetInput>(gameId) { reset() }
-        EventOrchestrator.subscribeForGameId<LineCleared>(gameId) { event ->
-            rechargeFreezeGauge(event)
-        }
-
-        EventOrchestrator.subscribeForGameId<GameEvent.SpinDetected>(gameId) { event ->
-            if (event.spinType != NONE) freezeGauge += 1.5
-        }
-
-        EventOrchestrator.subscribeForGameId<ZoneInput>(gameId) {
-            if (freezeGauge > 0.0) {
-                activateZone()
-            }
-        }
-    }
-
     private fun rechargeFreezeGauge(event: LineCleared) {
         val baseCharge = when (event.linesCleared.size) {
             1 -> 2.5
@@ -117,14 +65,12 @@ class WebTetris(
 
     private var isRunning: Boolean = false
 
-    override val gameId: String get() = context.gameId
-
     override fun start(renderer: GameRenderer<ProceduralPiece>) {
         if (isRunning) return
         isRunning = true
         var lastTime = window.performance.now()
 
-        BrowserInputHandler(context.gameId)
+        BrowserInputHandler(gameId)
         fun loop(time: Double) {
             if (!isRunning) return
 
